@@ -1,0 +1,108 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{03124DE1-4385-433D-9D5E-B2BEB5979588}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>DesignPatternsBusinessLogic</RootNamespace>
+    <AssemblyName>DesignPatternsBusinessLogic</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="AutoMapper, Version=6.1.1.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\packages\AutoMapper.6.1.1\lib\net45\AutoMapper.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.Linq" />
+    <Reference Include="System.Data.Services" />
+    <Reference Include="System.Data.Services.Client" />
+    <Reference Include="System.Data.SqlXml" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AutoMapper\Profiles\UserDTOToUserLoginProfile.cs" />
+    <Compile Include="AutoMapper\Profiles\UserRegisterToUserDTOProfile.cs" />
+    <Compile Include="BusinessCommands\Decorators\RegisterUserCommandHandlerDecorator.cs" />
+    <Compile Include="BusinessCommands\ICommand.cs" />
+    <Compile Include="BusinessCommands\ICommandHandler.cs" />
+    <Compile Include="BusinessCommands\RegisterUser\RegisterUserCommand.cs" />
+    <Compile Include="BusinessCommands\RegisterUser\RegisterUserCommandHandler.cs" />
+    <Compile Include="BusinessModel\User.cs" />
+    <Compile Include="BusinessQueries\Decorators\GetUserUnderUsernameAndPasswordQueryHandlerDecorator.cs" />
+    <Compile Include="BusinessQueries\GetSaltUnderUsername\GetSaltUnderUsernameQuery.cs" />
+    <Compile Include="BusinessQueries\GetSaltUnderUsername\GetSaltUnderUsernameQueryHandler.cs" />
+    <Compile Include="BusinessQueries\GetUserUnderUsernameAndPassword\GetUserUnderUsernameAndPasswordQuery.cs" />
+    <Compile Include="BusinessQueries\GetUserUnderUsernameAndPassword\GetUserUnderUsernameAndPasswordQueryHandler.cs" />
+    <Compile Include="BusinessQueries\GetUserUnderUsername\GetUserUnderUsernameQuery.cs" />
+    <Compile Include="BusinessQueries\GetUserUnderUsername\GetUserUnderUsernameQueryHandler.cs" />
+    <Compile Include="BusinessQueries\IQuery.cs" />
+    <Compile Include="BusinessQueries\IQueryHandler.cs" />
+    <Compile Include="BusinessQueries\IQueryProcessor.cs" />
+    <Compile Include="BusinessServices\UserService.cs" />
+    <Compile Include="DataTransferObjects\UserDTO.cs" />
+    <Compile Include="HashPassword.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="AutoMapper\Resolvers\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DesignPatternsDAL\DesignPatternsDAL.csproj">
+      <Project>{2403e897-1854-4416-8d91-405c0801d2e3}</Project>
+      <Name>DesignPatternsDAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DesignPatternsModel\DesignPatternsModel.csproj">
+      <Project>{51d96eea-9831-45d8-be08-d6f9a49dc93c}</Project>
+      <Name>DesignPatternsModel</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

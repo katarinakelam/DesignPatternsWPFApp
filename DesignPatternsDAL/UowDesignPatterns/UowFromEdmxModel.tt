@@ -1,0 +1,194 @@
+﻿<#@ template debug="false" hostspecific="true" language="C#" #>
+<#@ assembly name="System.Core" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ output extension=".cs" #>
+<#@ include file="EF.Utility.CS.ttinclude"#>
+<#@ include file="../T4Helper.ttinclude"#>
+<#@ import namespace="System.IO" #>
+
+<#         
+if(Errors.HasErrors)
+{
+    //return String.Empty;
+    return Errors[0].ErrorText;
+}
+
+CodeGenerationTools code = new CodeGenerationTools(this) {FullyQualifySystemTypes = true, CamelCaseFields = false};
+MetadataLoader loader = new MetadataLoader(this);
+MetadataTools ef = new MetadataTools(this);
+CodeRegion region = new CodeRegion(this);
+
+string SourceCsdlPath = FindEDMXFileName();
+ReferenceCsdlPaths = new string[] {};
+//string namespaceName = code.VsNamespaceSuggestion();
+string namespaceName = "DesignPatternsDAL.UowDesignPatterns";
+ItemCollection = loader.CreateEdmItemCollection(SourceCsdlPath, ReferenceCsdlPaths.ToArray());
+EntityContainer container = ItemCollection.GetItems<EntityContainer>().FirstOrDefault();
+//EntityFrameworkTemplateFileManager fileManager = EntityFrameworkTemplateFileManager.Create(this);
+List<EntityType> entityTypes = new List<EntityType>(ItemCollection.GetItems<EntityType>().Where(e => e.Name.StartsWith("vw_") == false).OrderBy(e => e.Name));
+List<EntitySet> entitySets = new List<EntitySet>(container.BaseEntitySets.OfType<EntitySet>().Where(e => e.Name.StartsWith("vw_") == false).OrderBy(e => e.Name));
+List<EdmFunction> functions = new List<EdmFunction>(ItemCollection.GetItems<EdmFunction>().OrderBy(e => e.Name));
+
+entityTypes.RemoveAll(e => e.Name.StartsWith("sys"));
+entitySets.RemoveAll(e => e.ElementType.Name.StartsWith("sys"));
+
+var fileManager = Manager.Create(Host, GenerationEnvironment);
+
+#>
+
+<# fileManager.StartNewFile("UnitOfWorkGenerated.cs"); #>
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using DesignPatternsDAL;
+using System.Data;
+using System.Data.Entity.Core.Objects;
+using System.Data.Entity.Infrastructure;
+using System.Data.Common;
+using DesignPatternsDAL.Uow;
+using DesignPatternsModel.DesignPatterns;
+
+namespace <#=namespaceName#>
+{
+    public class UnitOfWork : IUnitOfWorkAsync
+    {
+        private DesignPatternsContext _dataContext = new DesignPatternsContext();
+        protected ObjectContext _objectContext;
+        protected DbTransaction _transaction;
+
+        #region Concrete repositories
+
+<#
+	foreach (EntityType entity in entityTypes)
+	{        
+#>
+		private GenericRepository<<#= entity.Name #>> _<#= entity.Name.ToLowerInvariant() #>Repository;
+		public GenericRepository<<#= entity.Name #>> <#= entity.Name #>Repository
+        {
+            get
+            {
+                if (this._<#= entity.Name.ToLowerInvariant() #>Repository == null)
+                {
+                    this._<#= entity.Name.ToLowerInvariant() #>Repository = new GenericRepository<<#= entity.Name #>>(_dataContext);
+                }
+                return _<#= entity.Name.ToLowerInvariant() #>Repository;
+            }
+        }
+
+<# 
+    }        
+#>
+
+        #endregion
+
+        public void Save()
+        {
+            _dataContext.SaveChanges();
+        }
+
+        private bool disposed = false;
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!this.disposed)
+            {
+                if (disposing)
+                {
+                    if (_objectContext != null && _objectContext.Connection.State == ConnectionState.Open)
+                    {
+                        _objectContext.Connection.Close();
+                    }
+
+					if (_dataContext != null)
+                    {
+                        _dataContext.Dispose();
+                        _dataContext = null;
+                    }
+                }
+            }
+            this.disposed = true;
+        }
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+
+        #region Methods
+
+        #region IUnitOfWorkAsync Members
+
+        public Task<int> SaveChangesAsync()
+        {
+            return _dataContext.SaveChangesAsync();
+        }
+
+        public Task<int> SaveChangesAsync(System.Threading.CancellationToken cancellationToken)
+        {
+            return _dataContext.SaveChangesAsync(cancellationToken);
+        }
+
+        public int SaveChanges()
+        {
+            return _dataContext.SaveChanges();
+        }
+
+        public void BeginTransaction(System.Data.IsolationLevel isolationLevel = IsolationLevel.ReadCommitted)
+        {
+            _objectContext = ((IObjectContextAdapter)_dataContext).ObjectContext;
+            if (_objectContext.Connection.State != ConnectionState.Open)
+            {
+                _objectContext.Connection.Open();
+            }
+            _transaction = _objectContext.Connection.BeginTransaction(isolationLevel);
+        }
+
+        public bool Commit()
+        {
+            _transaction.Commit();
+            return true;
+        }
+
+        public void Rollback()
+        {
+            _transaction.Rollback();
+        }
+
+        public bool IsTransactionOpen
+        {
+            get { { return (_transaction != null && _transaction.Connection != null); } }
+        }
+
+        #endregion
+
+        #endregion
+    }
+}
+
+
+<# fileManager.EndBlock(); #>
+<# fileManager.Process(true); #>
+
+<#+
+public string SourceCsdlPath { get; set; }
+public EdmItemCollection ItemCollection { get; set; }
+public IEnumerable<string> ReferenceCsdlPaths { get; set; }
+ 
+string FindEDMXFileName()
+{            
+    string[] entityFrameworkFiles = Directory.GetFiles(Host.ResolvePath(".."), "DesignPatternsEntityModel.edmx");
+    if(entityFrameworkFiles.Length > 0)
+    {
+        return entityFrameworkFiles[0];
+    }
+    
+    return string.Empty;
+}
+#>
