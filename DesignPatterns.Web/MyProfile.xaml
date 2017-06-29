@@ -1,0 +1,17 @@
+﻿<Window x:Class="DesignPatternsWeb.MyProfile"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:DesignPatternsWeb"
+        WindowStartupLocation="CenterScreen"
+        mc:Ignorable="d"
+        Title="MyProfile" Height="350" Width="400">
+    <StackPanel Background="WhiteSmoke" x:Name="myProfile" Margin="20">
+        <TextBlock x:Name="TitleTextBlock" Text="My Profile" Padding="20" FontSize="15" TextAlignment="Center" FontFamily="Verdana" FontStyle="Normal"/>
+        <TextBlock></TextBlock>
+        <TextBlock x:Name="welcomeMessage"  Width="200px" FontSize="13" FontFamily="Verdana" Loaded="ShowWelcomeMessage"/>
+        <TextBlock></TextBlock>
+        <Button Content="Logout"  Width="60px" Click="LogoutButtonClick"/>
+    </StackPanel>
+</Window>

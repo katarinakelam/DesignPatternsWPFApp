@@ -20,7 +20,7 @@
           <Property Name="RoleId" Type="int" Nullable="false" />
           <Property Name="Username" Type="nvarchar" MaxLength="50" />
           <Property Name="Password" Type="nvarchar" MaxLength="255" />
-          <Property Name="Salt" Type="nchar" MaxLength="255" />
+          <Property Name="Salt" Type="nvarchar" MaxLength="255" />
         </EntityType>
         <Association Name="FK_User_Role">
           <End Role="Role" Type="Self.Role" Multiplicity="1" />
@@ -70,7 +70,7 @@
           <Property Name="RoleId" Type="Int32" Nullable="false" />
           <Property Name="Username" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Password" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="Salt" Type="String" MaxLength="255" FixedLength="true" Unicode="true" />
+          <Property Name="Salt" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Role" Relationship="DesignPatternsModel.DesignPatterns.FK_User_Role" FromRole="User" ToRole="Role" />
         </EntityType>
         <Association Name="FK_User_Role">

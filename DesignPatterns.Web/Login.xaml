@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DesignPatternsWeb"
         mc:Ignorable="d"
-        Title="Login" Height="300" Width="300">
+        WindowStartupLocation="CenterScreen"
+        Title="Login" Height="350" Width="400">
 
     <StackPanel Background="WhiteSmoke" x:Name="login" Margin="20">
         <TextBlock x:Name="TitleTextBlock" Text="Login" Padding="20" FontSize="15" TextAlignment="Center" FontFamily="Verdana" FontStyle="Normal"/>
@@ -13,6 +14,6 @@
         <TextBlock x:Name="emailValidationTextBlock" Width="200px"/>
         <PasswordBox  x:Name="password" KeyUp="ValidatePasswordLength" Width="200px" LostFocus="ShowPlaceHolder" GotFocus="HidePlaceHolder" Loaded="ShowPlaceHolder"></PasswordBox>
         <TextBlock x:Name="passwordLengthValidationTextBlock"  Width="200px"/>
-        <Button Content="Login"  Width="60px" Click="Login_Button_Click"/>
+        <Button Content="Login"  Width="60px" Click="LoginButtonClick"/>
     </StackPanel>
 </Window>

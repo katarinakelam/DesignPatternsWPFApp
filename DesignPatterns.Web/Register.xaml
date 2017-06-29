@@ -5,17 +5,18 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DesignPatternsWeb"
         mc:Ignorable="d"
-        Title="Register" Height="350" Width="525">
+        WindowStartupLocation="CenterScreen"
+        Title="Register" Height="350" Width="400">
 
     <StackPanel Background="WhiteSmoke" x:Name="register" Margin="20">
             <TextBlock x:Name="TitleTextBlock" Text="Register" Padding="20" FontSize="15" FontFamily="Verdana" FontStyle="Normal" TextAlignment="Center"/>
-        <TextBox  x:Name="username" Width="200px" MouseLeave="ValidateEmail" LostFocus="ShowPlaceHolder" GotFocus="HidePlaceHolder" Loaded="ShowPlaceHolder"></TextBox><!---->
+        <TextBox  x:Name="username" Width="200px" MouseLeave="ValidateEmail" LostFocus="ShowPlaceHolder" GotFocus="HidePlaceHolder" Loaded="ShowPlaceHolder"></TextBox>
         <TextBlock x:Name="emailValidationTextBlock" Text=" " Width="200px"/>
         <PasswordBox  x:Name="password" KeyUp="ValidatePasswordLength" Width="200px" LostFocus="ShowPlaceHolder" GotFocus="HidePlaceHolder" Loaded="ShowPlaceHolder"></PasswordBox>
         <TextBlock Name="passwordLengthValidationTextBlock" Width="200px"/>
         <PasswordBox x:Name="passwordRepeated" MouseLeave="ValidateMatchingPasswords" Width="200px" LostFocus="ShowPlaceHolder" GotFocus="HidePlaceHolder" Loaded="ShowPlaceHolder"></PasswordBox>
         <TextBlock x:Name="repeatedPasswordValidationTextBlock"  Width="200px"/>
-            <Button Content="Register"  Width="60px" Click="Register_Button_Click"/><!---->
+        <Button Content="Register"  Width="60px" Click="RegisterButtonClick"/>
         <TextBlock></TextBlock>
         <TextBlock Text="Already have an account? Sign in!" TextAlignment="Center"></TextBlock>
         <TextBlock></TextBlock>

@@ -29,8 +29,8 @@ namespace DesignPatternsBusinessLogic.BusinessQueries.Decorators
 
                 using (_unitOfWork = new UnitOfWork())
                 {
-                    //string _password = HashPassword.GenerateHash(query.User.Password, _salt);
-                   // query.User.Password = _password;
+                    string _password = HashPassword.GenerateHash(query.User.Password, _salt);
+                    query.User.Password = _password;
                     returnUser = _handler.Handle(query);
                 }
 

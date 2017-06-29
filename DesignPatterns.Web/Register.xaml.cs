@@ -32,7 +32,7 @@ namespace DesignPatternsWeb
             InitializeComponent();
         }
 
-        #region placeholder
+        #region placeholders
 
             private void ShowPlaceHolder(object sender, RoutedEventArgs e)
             {
@@ -73,6 +73,8 @@ namespace DesignPatternsWeb
 
         #endregion
 
+        #region validators
+
         private void ValidateEmail(object sender, RoutedEventArgs e)
         {
             if (!new EmailAddressAttribute().IsValid(username.Text))
@@ -99,6 +101,8 @@ namespace DesignPatternsWeb
 
         }
 
+        #endregion
+
         private void ValidateMatchingPasswords(object sender, RoutedEventArgs e)
         {
             if (password.Password != passwordRepeated.Password)
@@ -111,7 +115,7 @@ namespace DesignPatternsWeb
             }
         }
 
-        private void Register_Button_Click(object sender, RoutedEventArgs e)
+        private void RegisterButtonClick(object sender, RoutedEventArgs e)
         {
             string _username = username.Text;
             string _password = password.Password;

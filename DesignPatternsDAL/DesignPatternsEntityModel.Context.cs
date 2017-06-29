@@ -7,22 +7,25 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-using System;
-using System.Data.Entity;
-using System.Data.Entity.Infrastructure;
-
-public partial class DesignPatternsContext : DbContext
+namespace DesignPatternsDAL
 {
-    public DesignPatternsContext()
-        : base("name=DesignPatternsContext")
+    using System;
+    using System.Data.Entity;
+    using System.Data.Entity.Infrastructure;
+    
+    public partial class DesignPatternsContext : DbContext
     {
+        public DesignPatternsContext()
+            : base("name=DesignPatternsContext")
+        {
+        }
+    
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            throw new UnintentionalCodeFirstException();
+        }
+    
+        public virtual DbSet<Role> Roles { get; set; }
+        public virtual DbSet<User> Users { get; set; }
     }
-
-    protected override void OnModelCreating(DbModelBuilder modelBuilder)
-    {
-        throw new UnintentionalCodeFirstException();
-    }
-
-    public virtual DbSet<Role> Roles { get; set; }
-    public virtual DbSet<User> Users { get; set; }
 }

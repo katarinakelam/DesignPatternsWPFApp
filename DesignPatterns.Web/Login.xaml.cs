@@ -32,10 +32,11 @@ namespace DesignPatternsWeb
             InitializeComponent();
         }
 
-        #region placeholder
+        #region placeholders
 
         private void ShowPlaceHolder(object sender, RoutedEventArgs e)
         {
+
 
             if (username.Text == string.Empty)
             {
@@ -63,6 +64,8 @@ namespace DesignPatternsWeb
 
         #endregion
 
+        #region validators
+
         private void ValidateEmail(object sender, RoutedEventArgs e)
     {
         if (!new EmailAddressAttribute().IsValid(username.Text))
@@ -89,7 +92,9 @@ namespace DesignPatternsWeb
 
     }
 
-        private void Login_Button_Click(object sender, RoutedEventArgs e)
+        #endregion
+
+        private void LoginButtonClick(object sender, RoutedEventArgs e)
         {
             string _username = username.Text;
             string _password = password.Password;
@@ -109,13 +114,13 @@ namespace DesignPatternsWeb
             UserService loginUserService = new UserService();
 
             string returnMessage = loginUserService.LoginUser(returnUser);
-            // bool
 
             if (returnMessage == "OK")
             {
-                Register register = new Register();
+                MyProfile myProfile = new MyProfile();
+                myProfile.Username = returnUser.Username;
                 this.Hide();
-                register.Show();
+                myProfile.Show();
             }
             else
             {
