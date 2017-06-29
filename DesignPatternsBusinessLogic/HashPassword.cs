@@ -21,7 +21,7 @@ namespace DesignPatternsBusinessLogic
 
         public static string GenerateHash(string rawPassword, string salt)
         {
-            byte[] bytes = System.Text.Encoding.UTF8.GetBytes(rawPassword + salt);
+            byte[] bytes = Encoding.UTF8.GetBytes(rawPassword + salt);
             SHA256Managed hash = new SHA256Managed();
             byte[] hashPassword = hash.ComputeHash(bytes);
             string password = Convert.ToBase64String(hashPassword);

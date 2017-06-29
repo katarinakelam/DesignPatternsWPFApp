@@ -18,6 +18,7 @@ namespace DesignPatternsWeb.AutoMapper.Resolvers
 
             if (password == repeatedPassword)
             {
+                destination.RoleId = 1;
                 return password;
             }
             else

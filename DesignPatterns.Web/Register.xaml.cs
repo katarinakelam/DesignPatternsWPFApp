@@ -138,5 +138,12 @@ namespace DesignPatternsWeb
             this.Hide();
             login.Show();
         }
+
+        private void Go_To_Login(object sender, RoutedEventArgs e)
+        {
+            Login login = new Login();
+            this.Hide();
+            login.Show();
+        }
     }
 }

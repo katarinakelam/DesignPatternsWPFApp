@@ -19,10 +19,11 @@ namespace DesignPatternsBusinessLogic.BusinessCommands.Decorators
 
         public void Handle(RegisterUserCommand command)
         {
-            command.User.Salt = HashPassword.GenerateSalt(50);
-            command.User.Password = HashPassword.GenerateHash(command.User.Password, command.User.Salt);
+           // command.User.Salt = HashPassword.GenerateSalt(50);
+           // command.User.Password = HashPassword.GenerateHash(command.User.Password, command.User.Salt);
             using (_unitOfWork = new UnitOfWork())
             {
+                command.User.Salt = "000000";
                 _handler.Handle(command);
 
             }

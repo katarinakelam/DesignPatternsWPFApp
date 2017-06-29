@@ -4,10 +4,9 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="484c250b7aab40a8b0787db396c75593" Name="Diagram1" ZoomLevel="66">
-        
-        <EntityTypeShape EntityType="DesignPatternsModel.DesignPatterns.Role" Width="1.5" PointX="5.375" PointY="16.75" />
-        <EntityTypeShape EntityType="DesignPatternsModel.DesignPatterns.User" Width="1.5" PointX="17.375" PointY="15.75" />
+      <Diagram DiagramId="484c250b7aab40a8b0787db396c75593" Name="Diagram1" ZoomLevel="106">
+        <EntityTypeShape EntityType="DesignPatternsModel.DesignPatterns.Role" Width="1.5" PointX="0.75" PointY="1.25" />
+        <EntityTypeShape EntityType="DesignPatternsModel.DesignPatterns.User" Width="1.5" PointX="3" PointY="0.875" />
         <AssociationConnector Association="DesignPatternsModel.DesignPatterns.FK_User_Role" />
       </Diagram>
     </edmx:Diagrams>

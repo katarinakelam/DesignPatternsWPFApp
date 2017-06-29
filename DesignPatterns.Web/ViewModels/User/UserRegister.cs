@@ -13,5 +13,6 @@ namespace DesignPatternsWeb.ViewModels.User
         public string Password { get; set; }
 
         public string PasswordRepeated { get; set; }
+
     }
 }

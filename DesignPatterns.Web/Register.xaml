@@ -16,6 +16,10 @@
         <PasswordBox x:Name="passwordRepeated" MouseLeave="ValidateMatchingPasswords" Width="200px" LostFocus="ShowPlaceHolder" GotFocus="HidePlaceHolder" Loaded="ShowPlaceHolder"></PasswordBox>
         <TextBlock x:Name="repeatedPasswordValidationTextBlock"  Width="200px"/>
             <Button Content="Register"  Width="60px" Click="Register_Button_Click"/><!---->
-        </StackPanel>
+        <TextBlock></TextBlock>
+        <TextBlock Text="Already have an account? Sign in!" TextAlignment="Center"></TextBlock>
+        <TextBlock></TextBlock>
+        <Button Content="Login" Width="60px" Click="Go_To_Login"></Button>    
+    </StackPanel>
 
 </Window>
